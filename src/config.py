@@ -36,27 +36,27 @@ SEED = 2
 X_TRANSPOSE = False
 IMAGE_SHAPE = (8, 600, 3)
 
-TIMESTAMP = datetime.datetime.now().strftime("%y%m%d_%H%M%S")
-PLOT_FILE = os.path.join(ROOT_DIRECTORY, 'models', str(TIMESTAMP) + '_loss_plot.png')
-MODEL_FILE = os.path.join('models', str(TIMESTAMP) + '_model.h5')
-LOG_FILE = os.path.join('models', str(TIMESTAMP) + '_log.txt')
-HISTORY_FILE = os.path.join('models', str(TIMESTAMP) + '_history.npy')
+TIMESTAMP = datetime.datetime.now().strftime("%y%m%d_%H%M%S")   #  获取当前时间，并将其格式化为YYMMDD_HHMMSS的字符串形式，用于命名文件。
+PLOT_FILE = os.path.join(ROOT_DIRECTORY, 'models', str(TIMESTAMP) + '_loss_plot.png') # 保存损失曲线的文件路径。
+MODEL_FILE = os.path.join('models', str(TIMESTAMP) + '_model.h5')  # 模型文件的完整路径。
+LOG_FILE = os.path.join('models', str(TIMESTAMP) + '_log.txt')  # 日志文件的完整路径。
+HISTORY_FILE = os.path.join('models', str(TIMESTAMP) + '_history.npy')  # 历史记录文件的完整路径。
 
-EXPERIMENT_ROOT = os.path.join(ROOT_DIRECTORY, '..', 'experiments')
-MODEL_PATH = os.path.join(ROOT_DIRECTORY, MODEL_FILE)
-LOG_PATH = os.path.join(ROOT_DIRECTORY, LOG_FILE)
-HISTORY_PATH = os.path.join(ROOT_DIRECTORY, HISTORY_FILE)
+EXPERIMENT_ROOT = os.path.join(ROOT_DIRECTORY, '..', 'experiments')  # 实验的根目录路径。
+MODEL_PATH = os.path.join(ROOT_DIRECTORY, MODEL_FILE)  #  模型文件的完整路径。
+LOG_PATH = os.path.join(ROOT_DIRECTORY, LOG_FILE)  # 日志文件的完整路径。
+HISTORY_PATH = os.path.join(ROOT_DIRECTORY, HISTORY_FILE)  # 历史记录文件的完整路径。
 
-EXPERIMENT_NAME = 'ECG_CNN_MODEL'
+EXPERIMENT_NAME = 'ECG_CNN_MODEL'  #  实验名称。
 
 DATASET = 'gesustimeshift'
 INPUT_TYPE = 'medians'
 
-PREDICTION_LABELS = [
+PREDICTION_LABELS = [  # 一个列表，包含要预测的标签（这里是Asymmetry）。
     'Asymmetry'
 ]
 
-DEVICE_ID_LIST = GPUtil.getFirstAvailable(
+DEVICE_ID_LIST = GPUtil.getFirstAvailable(   #  获取可用的GPU设备列表，按照内存使用量排序，最大负载不超过90%，最大内存使用不超过80%。尝试3次，每次间隔15秒，并输出详细信息
     order = 'memory',
     maxLoad=0.9,
     maxMemory=0.8,
@@ -67,8 +67,8 @@ DEVICE_ID_LIST = GPUtil.getFirstAvailable(
 
 DEVICE_ID = DEVICE_ID_LIST[0]
 
-os.environ["CUDA_DEVICE_ORDER"] = "PCI_BUS_ID"
-os.environ["CUDA_VISIBLE_DEVICES"] = str(DEVICE_ID)
+os.environ["CUDA_DEVICE_ORDER"] = "PCI_BUS_ID"  # 设置CUDA设备顺序为PCI总线ID。
+os.environ["CUDA_VISIBLE_DEVICES"] = str(DEVICE_ID)  # 设置可见的CUDA设备为选择的DEVICE_ID。
 
 EPOCHS = 100 
 SAVE_AFTER = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 12, 15, 18, 20, 25, 30, 40, 50, 62, 75, 87, 100, 125, 150, 175, 200, 250, 300, 350, 400, 450, 500, 550, 600, 650, 700, 750, 800, 850, 900, 950]

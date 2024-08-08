@@ -76,6 +76,8 @@ def train():
         y_data = np.array(y_data).astype(np.int16)
     except:
         y_data = np.round(np.array(y_data).astype(np.float32)).astype(np.int16)
+
+    # 这个代码片段的作用是确保在交叉验证（或其他类似的实验）过程中，每个fold的最佳模型都被保存下来。fold_index 是当前fold的索引，用于区分不同的fold。
     
     for fold_index, (x_train, x_test, y_train, y_test) in enumerate(k_fold(x_data, y_data, config.K_FOLDS)):
         default_stdout.write('\n\n' + datetime.datetime.now().strftime("%H%M") + ': Running fold ' + str(fold_index+1) + ' of ' + str(config.K_FOLDS) + '\n') 
@@ -85,7 +87,7 @@ def train():
         
         MODEL_CALLBACKS = [
                             ModelCheckpoint(save_best_only=True,
-                                            filepath = f'{os.path.splitext(config.MODEL_PATH)[0] }_{ fold_index }_best.h5')
+                                            filepath = f'{os.path.splitext(config.MODEL_PATH)[0] }_{ fold_index }_best.h5')  # 用于保存模型在训练过程中的最佳状态。
                           ]
         
         

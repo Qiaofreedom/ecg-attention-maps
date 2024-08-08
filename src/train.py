@@ -110,6 +110,11 @@ def train():
             callbacks=MODEL_CALLBACKS,
             validation_data=(x_test, y_test),  #  指定验证数据
             shuffle=True)
+
+        # history.history: 一个字典，包含训练过程中每个 epoch 的损失和评估指标的值。字典的键是字符串，如 'loss'、'accuracy'、'val_loss' 和 'val_accuracy' 等（具体取决于你在模型编译时指定的指标）
+        # history.epoch: 包含所有 epoch 的列表。
+        # history.params: 包含训练参数的字典，如 batch 大小、epoch 数量等。
+        # history.model: 被训练的模型。
          
         print('\nModel name: ' + model.__class__.__name__ + '\n')   # 打印模型的类名，以标识正在使用的模型类型。
         print('Training mean absolute error (last 20 epochs). Mean: ' + str(np.mean(history.history['mae'][-20:])) + ', SD: ' + str(np.std(history.history['mae'][-20:])) + ', median: ' + str(np.median(history.history['mae'][-20:])) + '.\n')  

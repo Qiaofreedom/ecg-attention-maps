@@ -38,14 +38,14 @@ def prepare_csv_data(data, prediction_labels, training_path, x_shape=None, data_
 
     prediction_indicies = [ data_labels[label] for label in prediction_labels ] # 将 预测标签 转换为 对应的索引，并存储在 prediction_indicies 列表中。
     
-    counter = 0
+    counter = 0 # 用于计数符合条件的数据行。
     for row in data:
         if ([ row[index] for index in prediction_indicies ].count('NA')  == 0) & (os.path.isfile(f'{ training_path }/{ row[0] }.asc')) : 
             # 如果 预测标签索引对应的数据  没有缺失值（即值不为 'NA'）且文件存在于 training_path 中，则计数器 counter 增加1。
             counter += 1
     
-    tempcount = 0
-    while not 'median_data' in locals():
+    tempcount = 0   # 用于记录尝试加载数据的次数。
+    while not 'median_data' in locals():   # 进入一个循环，直到 median_data 在本地变量中被定义。
         tempcount += 1
         try:
             median_data, _ = read_csv(f'{ training_path }/{ row[0] }.asc', ' ', x_shape, False)

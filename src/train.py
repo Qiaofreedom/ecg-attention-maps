@@ -32,9 +32,10 @@ except:
 print('Running...')
 print(str(config.MODEL_PATH)) 
 
-default_stdout = sys.stdout   # 这行代码保存当前的标准输出流（通常是控制台）到 default_stdout （即日志文件）中。
+
 sys.stdout = open(config.LOG_PATH, 'w') 
 # 它将 sys.stdout 设置为一个打开的文件对象，该文件路径由 config.LOG_PATH 指定，文件以写模式（'w'）打开。这意味着从这行代码之后，所有的打印输出（例如使用 print 函数）将被写入到指定的文件(config.LOG_PATH)，而不是显示在控制台上。
+default_stdout = sys.stdout   # 这行代码保存当前的标准输出流（通常是控制台）到 default_stdout （即日志文件）中。
 
 tf.compat.v1.set_random_seed(config.SEED)
 np.random.seed(config.SEED) # config 是某种配置对象，包含脚本运行所需的配置信息。

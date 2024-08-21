@@ -36,7 +36,7 @@ def read_csv(csv_file, delimiter=';', transpose=False, skip_header=True, dtype=N
     
 def prepare_csv_data(data, prediction_labels, training_path, x_shape=None, data_labels = DATA_LABELS): # prediction_labels：预测标签列表
 
-    prediction_indicies = [ data_labels[label] for label in prediction_labels ] # 将 预测标签 转换为 对应的索引，并存储在 prediction_indicies 列表中。
+    prediction_indicies = [ data_labels[label] for label in prediction_labels ] # 将 预测标签 转换为 对应的索引(1,2,3,4之类)，并存储在 prediction_indicies 列表中。
     
     counter = 0 # 用于计数符合条件的数据行。
     for row in data:

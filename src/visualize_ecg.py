@@ -74,6 +74,9 @@ def explain(image, model, class_index, layer_name, weighted=None):
     )
 
 def plot_ecg_image(ax, sensor_data, heatmap, name): # sensor_data: 包含ECG传感器数据的数组或列表，表示心电图的波形数据。
+    # 这段代码的整体作用是将心电图的波形数据和与之相关的热图叠加在一起，并在图中显示。
+    # 它通过去除额外的图像标记来简化视图，同时以灰色线条表示 ECG 波形，用色块表示热图。
+    # 这种可视化方法可以帮助分析和解释心电图数据与某些热图数据之间的关系。
 
     ax.set_yticklabels([])  # 移除图像的X轴和Y轴的标签，以及隐藏所有轴线的边框。
     ax.set_xticklabels([])

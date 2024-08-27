@@ -58,8 +58,11 @@ def explain(image, model, class_index, layer_name, weighted=None):
     if weighted is not None:
         guided_grad *= weighted.T
 
-    weights = tf.reduce_mean(guided_grad, axis=(0, 1))
-    heatmap = tf.reduce_sum(tf.multiply(weights, output), axis=-1)
+    weights = tf.reduce_mean(guided_grad, axis=(0, 1))  # 计算特征图各通道的平均权重。这些权重代表了各个特征图通道对最终分类决策的重要性。
+    heatmap = tf.reduce_sum(tf.multiply(weights, output), axis=-1) 
+    # 生成热力图，表示输入图像中各区域对预测结果的贡献。output 是从目标卷积层提取的特征图
+    # weights 是一个 1D 张量，形状为 [channels]，表示每个通道的权重。
+
     
     image = np.squeeze(image)
 

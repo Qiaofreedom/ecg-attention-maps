@@ -42,19 +42,19 @@ def explain(image, model, class_index, layer_name, weighted=None):
     )
 
     with tf.GradientTape() as tape:
-        inputs = tf.cast(image, tf.float32)
-        conv_outputs, predictions = grad_model(inputs)
+        inputs = tf.cast(image, tf.float32)  # 这行代码的作用是将输入的 image 张量转换为 tf.float32 类型。
+        conv_outputs, predictions = grad_model(inputs)  # 这里的 conv_outputs 对应的就是目标层的输出， predictions 是图像经过分类网络的输出
         loss = predictions[:, class_index]
 
-    grads = tape.gradient(loss, conv_outputs)
+    grads = tape.gradient(loss, conv_outputs) # 计算给定 loss 相对于 conv_outputs 的梯度。
 
     guided_grads = (
         tf.cast(conv_outputs > 0, "float32") * tf.cast(grads > 0, "float32") * grads
-    )
+    )  # 会将卷积层输出大于 0 且梯度大于 0 的部分保留，其他部分设为 0。这种操作有效地保留了对正激活和正梯度的梯度贡献，抑制了负值的影响，这也是 Guided Backpropagation 的核心思想。
 
-    output = conv_outputs[0]
-    guided_grad = guided_grads[0]
-    
+    output = conv_outputs[0]  # 是目标层（或特征层）的输出
+    guided_grad = guided_grads[0]  # 在目标层计算得到的梯度图
+     
     if weighted is not None:
         guided_grad *= weighted.T
 

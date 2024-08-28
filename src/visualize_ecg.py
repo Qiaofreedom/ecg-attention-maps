@@ -35,7 +35,8 @@ def load_ecg_data_from_file(filepath, delimiter=" "):
 
     return np.array(data_item_list)
 
-def explain(image, model, class_index, layer_name, weighted=None):
+def explain(image, model, class_index, layer_name, weighted=None): 
+    # layer_name 是目标层
 
     grad_model = tf.keras.models.Model(
         [model.inputs], [model.get_layer(layer_name).output, model.output]

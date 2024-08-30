@@ -91,11 +91,12 @@ def plot_ecg_image(ax, sensor_data, heatmap, name): # sensor_data: 包含ECG传�
 
     heatmap = heatmap / 255
 
-    data_points = np.zeros((len(sensor_data), 1, 2))  # 初始化一个零矩阵 data_points，它的形状为 (len(sensor_data), 1, 2)。这个矩阵用于存储每个数据点的坐标，其中第一列是X坐标（时间），第二列是Y坐标（ECG数据值）。
+    data_points = np.zeros((len(sensor_data), 1, 2))  
+   # 初始化一个零矩阵 data_points，它的形状为 (len(sensor_data), 1, 2)。这个矩阵用于存储每个数据点的坐标，len(sensor_data)：表示数据点的数量，这个2表示 其中第一列是X坐标（时间），第二列是Y坐标（ECG数据值）。
 
-    for row_index, point in enumerate(sensor_data):
-        data_points[ row_index, 0, 0 ] = row_index
-        data_points[ row_index, 0, 1 ] = point
+    for row_index, point in enumerate(sensor_data): # 将每个数据点的位置和对应的ECG数据值填入 data_points 矩阵中。
+        data_points[ row_index, 0, 0 ] = row_index  # row_index 是数据点的索引，用于表示时间（X坐标）。
+        data_points[ row_index, 0, 1 ] = point  # point 是当前数据点的值（ECG数据值），用于表示Y坐标。
 
     segments = np.hstack([data_points[:-1], data_points[1:]])   # np.hstack 将 data_points 的相邻点组合起来，生成形状为 (n-1, 2, 2) 的线段数组。
     coll = LineCollection(segments, colors=[ [ 0.5, 0.5, 0.5 ] ] * len(segments), linewidths=(1.3)) 

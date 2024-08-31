@@ -139,7 +139,7 @@ def visualize_ecg_prediction_tf_explain(model_path, ecg_paths, output_path, clas
         
         logging.info("Visualizing %s..." % path)
         try: 
-            ecg_values = load_ecg_data_from_file(path)
+            ecg_values = load_ecg_data_from_file(path)  # 这是一个ECG
         except:
             continue
         ecg_values = np.array(ecg_values, dtype=np.float32)
